@@ -1,3 +1,9 @@
-*.d
-nachos
-
+# Ignore everything in this directory
+*
+# Except these files
+!.gitignore
+!*.h
+!*.cc
+!*.S
+!Makefile
+!README

@@ -1,2 +1,7 @@
-coff2noff
-
+# Ignore everything in this directory
+*
+# Except these files
+!.gitignore
+!*.h
+!*.c
+!Makefile

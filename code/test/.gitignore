@@ -1,7 +1,8 @@
-*.coff
-*.s
-matmult
-sort
-shell
-halt
-*.svg
+# Ignore everything in this directory
+*
+# Except these files
+!.gitignore
+!*.h
+!*.c
+!*.S
+!Makefile
