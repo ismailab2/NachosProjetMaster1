@@ -40,7 +40,7 @@ HOST += -DLINUX
 CFLAGS += -fsanitize=undefined
 LDFLAGS += -fsanitize=undefined
 
-ifeq ($(shell [ `$(CC) -dumpversion` -ge 12 ] && echo ok),ok)
+ifeq ($(shell [ `$(CC) -dumpversion | cut -d . -f 1` -ge 12 ] && echo ok),ok)
 CFLAGS += -ftrivial-auto-var-init=pattern
 endif
 
