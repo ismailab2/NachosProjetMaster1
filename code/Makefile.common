@@ -124,12 +124,10 @@ depend: $(DFILES)
 $(DFILES): $(MAKEFILES)
 
 $(C_DFILES): .%.d: %.cc
-	$(CC) $(CFLAGS) -MM $< | \
-		sed -e 's|\(.*\)\.o:|.\1.d \1.o:|g' > $@
+	$(CC) $(CFLAGS) -MM -MT ".$*.d $*.o" $< > $@
 
 $(S_DFILES): .%.d: %.S
-	$(CC) $(CFLAGS) -MM $< | \
-		sed -e 's|\(.*\)\.o:|.\1.d \1.o:|g' > $@
+	$(CC) $(CFLAGS) -MM -MT ".$*.d $*.o" $< > $@
 
 ifneq ($(MAKECMDGOALS),clean)
 -include $(DFILES)
