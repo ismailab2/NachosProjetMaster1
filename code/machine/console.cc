@@ -132,22 +132,24 @@ Console::CheckCharAvail()
             /* ASCII */
             incoming = c;
         } else {
-            if ((c & 0xe0) != 0xc0)
+            if ((c & 0xe0) != 0xc0) {
                 /* continuation char or more than three bytes, drop */
-                return;
-            if (c & 0x1c)
+                n = 0;
+            } else if (c & 0x1c) {
                 /* Not latin1, drop */
-                return;
-            /* latin1 UTF-8 char, read second char */
-            n = ReadPartial(readFileNo,  &d, sizeof(d));
-            if (n == 0) {
-                incoming = EOF;
-                (*readHandler)(handlerArg);
-            } else if ((d & 0xc0) != 0x80) {
-                /* Odd, drop */
-                return;
+                n = 0;
             } else {
-                incoming = (c & 0x03) << 6 | d;
+                /* latin1 UTF-8 char, read second char */
+                n = ReadPartial(readFileNo,  &d, sizeof(d));
+                if (n == 0) {
+                    incoming = EOF;
+                    (*readHandler)(handlerArg);
+                } else if ((d & 0xc0) != 0x80) {
+                    /* Odd, drop */
+                    n = 0;
+                } else {
+                    incoming = (c & 0x03) << 6 | d;
+                }
             }
         }
     }
@@ -210,6 +212,10 @@ Console::TX(int ch)
     unsigned char c;
 
     ASSERT_MSG(putBusy == FALSE, "We are already sending a character\n");
+
+    if (ch < -128)
+        // Non-latin1, drop
+        return;
 
     // Compensate when given a non-ascii latin1 character passed as signed char
     if (ch < 0 && ch >= -128)
