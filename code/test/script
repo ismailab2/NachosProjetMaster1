@@ -4,20 +4,20 @@ SECTIONS
 {
   .text  0 : {
      _ftext = . ;
-    *(.init)
+    *(.init*)
      eprol  =  .;
     *(.text*)
-    *(.fini)
+    *(.fini*)
     . = ALIGN(128);
   }
    etext  =  .;
    _etext  =  .;
    _fdata = .;
   .data  . : {
-    *(.rdata)
-    *(.rodata)
-    *(.sdata)
-    *(.data)
+    *(.rdata*)
+    *(.rodata*)
+    *(.sdata*)
+    *(.data*)
     CONSTRUCTORS
     . = ALIGN(128);
   }
@@ -25,18 +25,18 @@ SECTIONS
    _edata  =  .;
    _fbss = .;
   .sbss  . : {
-    *(.sbss)
-    *(.scommon)
+    *(.sbss*)
+    *(.scommon*)
     . = ALIGN(128);
   }
   .bss  . : {
-    *(.bss)
+    *(.bss*)
     *(COMMON)
     . = ALIGN(128);
   }
   .drop . : {
-    *(.reginfo)
-    *(.pdr)
+    *(.reginfo*)
+    *(.pdr*)
     *(.MIPS.ab*)
     *(.comment*)
     *(.gnu.att*)
