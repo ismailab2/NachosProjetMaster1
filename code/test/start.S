@@ -159,7 +159,7 @@ Yield:
         .end   Yield
 
 
-/* dummy function to keep gcc happy */
+/* dummy function only to keep gcc happy, it's not actually used */
         .globl  __main
         .ent    __main
 __main:
