@@ -10,6 +10,7 @@
 # if you are cross-compiling, you need to point to the right executables
 # and change the flags to "ld" and the build procedure for "as".
 
+SHELL=bash
 NACHOS_ROOT = ../../
 NACHOS_SYS := $(shell $(NACHOS_ROOT)/bin/nachos_sys)
 NACHOS_ARCH := $(shell $(NACHOS_ROOT)/bin/nachos_arch)
@@ -80,7 +81,7 @@ start.o: start.S ../userprog/syscall.h
 	rm strt.s
 
 %.o: %.c ../userprog/syscall.h
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $< 2>&1 | sed -e 's/\(\(warning:\|attention :\).*\)/'$$'\e''[33m\1'$$'\e''[0m/'
 
 # LB: Caution! start.o should appear *before* $< for the load!
 
