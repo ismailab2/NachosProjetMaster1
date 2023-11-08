@@ -232,6 +232,7 @@ Thread::Finish ()
     threadToBeDestroyed = currentThread;
     Sleep ();			// invokes SWITCH
     // not reached
+    ASSERT_MSG (0, "Ooops??");
 }
 
 //----------------------------------------------------------------------

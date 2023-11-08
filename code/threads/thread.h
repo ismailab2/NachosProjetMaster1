@@ -98,7 +98,8 @@ class Thread:public dontcopythis
     // other thread is runnable
     void Sleep (void);                  // Put the thread to sleep and
     // relinquish the processor
-    void Finish (void);                 // The thread is done executing
+    void Finish (void) __attribute__ ((__noreturn__));
+                                        // The thread is done executing
 
     void CheckOverflow (void);          // Check if thread has
     // overflowed its stack

@@ -39,8 +39,8 @@ extern void ReadFromSocket(int sockID, void *buffer, int packetSize);
 extern void SendToSocket(int sockID, const void *buffer, int packetSize,const char *toName);
 
 // Process control: abort, exit, and sleep
-extern void Abort(void);
-extern void Exit(int exitCode);
+extern void Abort(void) __attribute__ ((__noreturn__));
+extern void Exit(int exitCode) __attribute__ ((__noreturn__));
 extern void Delay(int seconds);
 
 // Initialize system so that cleanUp routine is called when user hits ctl-C

@@ -91,7 +91,8 @@ class Interrupt:public dontcopythis {
                                         // simulated time forward until the
                                         // next interrupt
 
-    void Powerdown(void);               // quit and print out stats
+    void Powerdown(void) __attribute__ ((__noreturn__));
+                                        // quit and print out stats
 
     void YieldOnReturn(void);           // cause a context switch on return
                                         // from an interrupt handler
