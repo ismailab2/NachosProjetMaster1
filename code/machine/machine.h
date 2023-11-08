@@ -114,7 +114,8 @@ class Machine:public dontcopythis {
     ~Machine();                 // De-allocate the data structures
 
 // Routines callable by the Nachos kernel
-    void Run(void);             // Run a user program
+    void Run(void) __attribute__ ((__noreturn__));
+                                // Run a user program
 
     int ReadRegister(int num);  // read the contents of a CPU register
 
