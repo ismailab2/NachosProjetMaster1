@@ -551,3 +551,4 @@ SWITCH:
         ret
 
 #endif
+	.section	.note.GNU-stack,"",@progbits
