@@ -117,9 +117,7 @@ AddrSpace::AddrSpace (OpenFile * executable)
       {
           DEBUG ('a', "Initializing data segment, at 0x%x, size 0x%x\n",
                  noffH.initData.virtualAddr, noffH.initData.size);
-          executable->ReadAt (&
-                              (machine->mainMemory
-                               [noffH.initData.virtualAddr]),
+          executable->ReadAt (&(machine->mainMemory[noffH.initData.virtualAddr]),
                               noffH.initData.size, noffH.initData.inFileAddr);
       }
 
