@@ -297,7 +297,7 @@ Thread::Sleep ()
     Thread *nextThread;
 
     ASSERT_MSG (this == currentThread, "Cannot sleep for another thread\n");
-    ASSERT_MSG (interrupt->getLevel () == IntOff, "Cannot sleep while interrupts are off\n");
+    ASSERT_MSG (interrupt->getLevel () == IntOff, "Cannot sleep while interrupts are on, caller is supposed to shut them off\n");
 
     DEBUG ('t', "Sleeping thread %p \"%s\"\n", this, getName ());
 
