@@ -69,7 +69,7 @@ PROGS	:=	$(patsubst %.c,%,$(SOURCES))
 
 # We don't support native builds
 ifeq ($(GCCDIR),)
-$(warning When not running at CREMI, I need the cross compiler installed in /opt/xgcc)
+$(warning *** WARNING *** When not running at CREMI, I need the cross compiler installed in /opt/xgcc)
 all:
 else
 all: $(PROGS)
