@@ -34,7 +34,7 @@
 // Since the device is asynchronous, the interrupt handler "readAvailHandler"
 // is called when a character has arrived, ready to be read by calling
 // RX().
-// The interrupt handler "writeDone" is called when an output character written
+// The interrupt handler "writeDoneHandler" is called when an output character written
 // by calling TX() has been "put", so that the next character can be
 // written.
 
