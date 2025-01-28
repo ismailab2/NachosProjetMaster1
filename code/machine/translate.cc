@@ -106,11 +106,13 @@ Machine::ReadMem(int virtAddr, int size, int *value, bool debug)
         break;
 
       case 2:
+        ASSERT_MSG(!(physicalAddress & 1), "Reading 2 bytes has to be aligned on 2 bytes, %x is not\n", physicalAddress);
         data = *(unsigned short *) &machine->mainMemory[physicalAddress];
         *value = ShortToHost(data);
         break;
 
       case 4:
+        ASSERT_MSG(!(physicalAddress & 3), "Reading 4 bytes has to be aligned on 4 bytes, %x is not\n", physicalAddress);
         data = *(unsigned int *) &machine->mainMemory[physicalAddress];
         *value = WordToHost(data);
         break;
@@ -161,11 +163,13 @@ Machine::WriteMem(int virtAddr, int size, int value)
         break;
 
       case 2:
+        ASSERT_MSG(!(physicalAddress & 1), "Writing 2 bytes has to be aligned on 2 bytes, %x is not\n", physicalAddress);
         *(unsigned short *) &machine->mainMemory[physicalAddress]
                 = ShortToMachine((unsigned short) (value & 0xffff));
         break;
 
       case 4:
+        ASSERT_MSG(!(physicalAddress & 3), "Writing 4 bytes has to be aligned on 4 bytes, %x is not\n", physicalAddress);
         *(unsigned int *) &machine->mainMemory[physicalAddress]
                 = WordToMachine((unsigned int) value);
         break;
