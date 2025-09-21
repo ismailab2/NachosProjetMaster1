@@ -8,7 +8,7 @@
 #include "console.h"
 
 
-class ConsoleDriver:dontcopythis {
+class ConsoleDriver:{
 
     public:
         // initialize the hardware console device
@@ -24,4 +24,5 @@ class ConsoleDriver:dontcopythis {
 };
 
 #endif // CONSOLEDRIVER_H
+
 #endif // CHANGED

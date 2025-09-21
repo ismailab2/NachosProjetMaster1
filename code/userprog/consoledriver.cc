@@ -15,7 +15,15 @@ void PutChar(int ch)
 {
     if (ch == EOF) return;
 
-    // Optionnel : encadrer le caractère comme dans ConsoleTest CHANGED
+    // on doit savoir si on implemente un PutChar qui termin s'il lue  'q' 
+    /*
+    if (ch == 'q') {
+        printf("Au revoir !\n");
+    }
+    */
+
+    /*
+    // encadrer le caractère comme dans ConsoleTest CHANGED
     if (ch != '\n') {
         console->TX('<'); writeDone->P();
         console->TX(ch); writeDone->P();
@@ -24,10 +32,12 @@ void PutChar(int ch)
         console->TX(ch); writeDone->P();
     }
 
-    // Quitte si 'q' (comme dans ConsoleTest)
-    if (ch == 'q') {
-        printf("Au revoir !\n");
-    }
+   */
+
+
+   console->TX(ch); 
+   writeDone->P();
+
 }
 
 // Lit un caractère depuis la console (comme getchar)
