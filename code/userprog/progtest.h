@@ -19,6 +19,10 @@ extern void ConsoleTest (const char *in, const char *out);
 
 extern void ConsoleDriverTest (const char *in, const char *out);
 
+#ifdef CHANGED
+
 void ConsoleDriverTest(const char *in, const char *out);
+
+#endif // CHANGED
 
 #endif // PROGTEST_H

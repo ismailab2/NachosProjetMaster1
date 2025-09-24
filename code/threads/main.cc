@@ -132,6 +132,23 @@ main (int argc, char **argv)
                       argCount = 3;
                   }
             }
+
+          //ajoute de l'option -sc de test de la console synchrone qui lance la fonction ConsoleDriverTest
+          #ifdef CHANGED
+          else if (strcmp (*argv, "-sc"))
+          {
+            if (argc == 1){
+              ConsoleDriverTest (NULL, NULL);
+            }
+            else{
+              ASSERT_MSG (argc > 2, "-sc a besoins de 2  fichier \n");
+              ConsoleDriverTest (*(argv + 1), *(argv + 2));
+              argCount = 3;
+            }
+          }
+          #endif  //CHANGED
+
+
 #endif // USER_PROGRAM
 #ifdef FILESYS
           if (!strcmp (*argv, "-cp"))
