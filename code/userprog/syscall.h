@@ -33,7 +33,7 @@
 #define SC_Yield	11
 
 #ifdef CHANGED
-#define SC_PutChar 12
+#define SC_PutChar  12
 #endif
 
 #ifdef IN_USER_MODE
