@@ -12,6 +12,12 @@
 #include <malloc.h>
 #endif
 
+#ifdef CHANGED
+#ifdef USER_PROGRAM
+ConsoleDriver *consoledriver;
+#endif
+#endif
+
 // This defines *all* of the global data structures used by Nachos.
 // These are all initialized and de-allocated by this file.
 
@@ -230,6 +236,9 @@ Cleanup ()
         delete machine;
         machine = NULL;
     }
+    #ifdef CHANGED
+    delete consoledriver;
+    #endif
 #endif
 
 #ifdef FILESYS_NEEDED

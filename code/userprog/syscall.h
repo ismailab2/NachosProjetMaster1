@@ -32,6 +32,10 @@
 #define SC_Fork		10
 #define SC_Yield	11
 
+#ifdef CHANGED
+#define SC_PutChar 12
+#endif
+
 #ifdef IN_USER_MODE
 
 // LB: This part is read only on compiling the test/*.c files.
@@ -51,6 +55,9 @@
 /* Stop Nachos, and print out performance stats */
 void Halt (void) __attribute__ ((__noreturn__));
 
+#ifdef CHANGED
+void PutChar (char c);
+#endif
 
 /* Address space control operations: Exit, Exec, and Join */
 
