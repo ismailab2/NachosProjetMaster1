@@ -8,7 +8,7 @@
 #include "console.h"
 
 
-class ConsoleDriver:{
+class ConsoleDriver{
 
     public:
         // initialize the hardware console device

@@ -1,54 +1,52 @@
 #ifdef CHANGED
 
 #include "copyright.h"
-#include "utility.h"
-#include "console.h"
-#include "synch.h"
+#include "system.h"
 #include "consoledriver.h"
+#include "synch.h"
 
-extern Console *console;
-extern Semaphore *readAvail;
-extern Semaphore *writeDone;
+static Semaphore *readAvail;
+static Semaphore *writeDone;
 
-// Écrit un caractère sur la console (comme putchar)
-void PutChar(int ch)
+static void ReadAvailHandler(void *arg) { (void) arg; readAvail->V(); }
+static void WriteDoneHandler(void *arg) { (void) arg; writeDone->V(); }
+
+ConsoleDriver::ConsoleDriver(const char *in, const char *out)
 {
-    if (ch == EOF) return;
-
-    // on doit savoir si on implemente un PutChar qui termin s'il lue  'q' 
-    /*
-    if (ch == 'q') {
-        printf("Au revoir !\n");
-    }
-    */
-
-    /*
-    // encadrer le caractère comme dans ConsoleTest CHANGED
-    if (ch != '\n') {
-        console->TX('<'); writeDone->P();
-        console->TX(ch); writeDone->P();
-        console->TX('>'); writeDone->P();
-    } else {
-        console->TX(ch); writeDone->P();
-    }
-
-   */
-
-
-   console->TX(ch); 
-   writeDone->P();
-
+    readAvail = new Semaphore("read avail", 0);
+    writeDone = new Semaphore("write done", 0);
+    console = new Console (in, out, ReadAvailHandler, WriteDoneHandler, NULL);
 }
 
-// Lit un caractère depuis la console (comme getchar)
-int GetChar()
+ConsoleDriver::~ConsoleDriver()
 {
-    char ch;
-    readAvail->P();       // attend qu'un caractère soit disponible
-    ch = console->RX();   // lit le caractère
+    delete console;
+    delete writeDone;
+    delete readAvail;
+}
 
-    if (ch == EOF) return EOF;
+void ConsoleDriver::PutChar(int ch)
+{
+    console->TX (ch);        // echo it!
+    writeDone->P ();        // wait for write to finish
+}
+
+int ConsoleDriver::GetChar()
+{
+    int ch = 0;
+    readAvail->P ();        // wait for character to arrive
+    ch = console->RX ();
     return ch;
+}
+
+void ConsoleDriver::PutString(const char *s)
+{
+// ...
+}
+
+void ConsoleDriver::GetString(char *s, int n)
+{
+// ...
 }
 
 #endif // CHANGED

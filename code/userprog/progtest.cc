@@ -14,6 +14,8 @@
 #include "addrspace.h"
 #include "synch.h"
 
+#include <consoledriver.h>
+
 //----------------------------------------------------------------------
 // StartProcess
 //      Run a user program.  Open the executable, load it into
@@ -126,6 +128,22 @@ ConsoleTest (const char *in, const char *out)
     delete writeDone;
 }
 
+#ifdef CHANGED
+
+void
+ConsoleDriverTest (const char *in, const char *out)
+{
+  char ch;
+  ConsoleDriver *test_consoledriver = new ConsoleDriver(in, out);
+
+  while ((ch = test_consoledriver->GetChar()) != EOF)
+    test_consoledriver->PutChar(ch);
+  fprintf(stderr, "EOF detected in ConsoleDriver!\n");
+
+  delete test_consoledriver;
+}
+
+#endif //CHANGED
 
 #else
 

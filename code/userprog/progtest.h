@@ -11,8 +11,12 @@
 #ifndef PROGTEST_H
 #define PROGTEST_H
 
+#include <consoledriver.h>
+
 extern void StartProcess (char *filename);
 
 extern void ConsoleTest (const char *in, const char *out);
+
+extern void ConsoleDriverTest (const char *in, const char *out);
 
 #endif // PROGTEST_H
