@@ -60,7 +60,7 @@ main (int argc, char **argv)
         printf (
 "Usage: nachos -d <debugflags> -rs <random seed #> -z -h\n"
 #ifdef USER_PROGRAM
-"       -s -x <nachos file> -c <consoleIn> <consoleOut>\n"
+"       -s -x <nachos file> -c -sc <consoleIn> <consoleOut>\n"
 #endif
 #ifdef FILESYS
 "       -f -cp <unix file> <nachos file>\n"
@@ -135,7 +135,7 @@ main (int argc, char **argv)
 
           //ajoute de l'option -sc de test de la console synchrone qui lance la fonction ConsoleDriverTest
           #ifdef CHANGED
-          else if (strcmp (*argv, "-sc"))
+          else if (!strcmp (*argv, "-sc"))
           {
             if (argc == 1){
               ConsoleDriverTest (NULL, NULL);

@@ -25,9 +25,14 @@ void PutChar(int ch)
     /*
     // encadrer le caractère comme dans ConsoleTest CHANGED
     if (ch != '\n') {
-        console->TX('<'); writeDone->P();
-        console->TX(ch); writeDone->P();
-        console->TX('>'); writeDone->P();
+        console->TX('<'); 
+        writeDone->P();
+
+        console->TX(ch); 
+        writeDone->P();
+
+        console->TX('>'); 
+        writeDone->P();
     } else {
         console->TX(ch); writeDone->P();
     }

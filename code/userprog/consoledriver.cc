@@ -27,8 +27,16 @@ ConsoleDriver::~ConsoleDriver()
 
 void ConsoleDriver::PutChar(int ch)
 {
-    console->TX (ch);        // echo it!
-    writeDone->P ();        // wait for write to finish
+    if (ch != '\n') {
+        console->TX('<'); 
+        writeDone->P();
+
+        console->TX(ch); 
+        writeDone->P();
+
+        console->TX('>'); 
+        writeDone->P();
+    }
 }
 
 int ConsoleDriver::GetChar()
