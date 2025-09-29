@@ -84,20 +84,21 @@ unsigned ConsoleDriver::copyStringFromMachine(int from, char *to, unsigned size)
 
     int value ;// ReadMem écrit dans un int
     bool success;
-    for (unsigned i=0; i<size-1; i++){
-        success = ReadMem(from+i, 1 , &value);
+    unsigned i=0;
+    for (; i<size-1; i++){
+        success = machine->ReadMem(from+i, 1 , &value);
 
         if(! success){
             break; //erreur de lecture
         }
 
         to[i++]=(char) value;
-        if (toi[i] == '\0'){
+        if (to[i] == '\0'){
             return i; // fin de chaîne côté utilisateur
         }
 
     }
-    toi[i]='\0';
+    to[i]='\0';
     return i;
 
 }
