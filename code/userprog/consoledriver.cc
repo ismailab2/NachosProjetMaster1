@@ -47,14 +47,33 @@ int ConsoleDriver::GetChar()
     return ch;
 }
 
+
+
 void ConsoleDriver::PutString(const char *s)
 {
-// ...
+    if (s == nullptr) return;
+
+    for (int i =0; s[i] != '\0'; i++){
+        PutChar(s[i]); // on reutilise la fonction putchar pour la simplication du code.
+    }
 }
 
 void ConsoleDriver::GetString(char *s, int n)
 {
-// ...
+    int i =0;
+
+    if (s == nullptr || n <= 0) return;
+
+    while (i < n-1){
+        int ch = GetChar();
+        // fin de lecture sur retour chariot ou EOF
+        if (ch == '\n' || ch == EOF){
+            break;
+        }
+        
+        s[i++] = (char)ch;
+    }
+    s[i]= '\0';
 }
 
 #endif // CHANGED
