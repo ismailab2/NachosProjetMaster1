@@ -54,6 +54,7 @@ void ConsoleDriver::PutString(const char *s)
     if (s == nullptr) return;
 
     for (int i =0; s[i] != '\0'; i++){
+
         PutChar(s[i]); // on reutilise la fonction putchar pour la simplication du code.
     }
 }
@@ -75,5 +76,32 @@ void ConsoleDriver::GetString(char *s, int n)
     }
     s[i]= '\0';
 }
+
+
+unsigned ConsoleDriver::copyStringFromMachine(int from, char *to, unsigned size)
+{
+    if (to == nullptr || size == 0) return 0;
+
+    int value ;// ReadMem écrit dans un int
+    bool success;
+    for (unsigned i=0; i<size-1; i++){
+        success = ReadMem(from+i, 1 , &value);
+
+        if(! success){
+            break; //erreur de lecture
+        }
+
+        to[i++]=(char) value;
+        if (toi[i] == '\0'){
+            return i; // fin de chaîne côté utilisateur
+        }
+
+    }
+    toi[i]='\0';
+    return i;
+
+}
+
+
 
 #endif // CHANGED
