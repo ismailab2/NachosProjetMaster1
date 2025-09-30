@@ -1,3 +1,6 @@
+
+#ifdef CHANGED;
+
 #include "syscall.h"
 
 void print(char c, int n)
@@ -17,3 +20,5 @@ void print(char c, int n)
         print('a',4);
         Halt();
     }
+
+    #endif //   CHANGED
