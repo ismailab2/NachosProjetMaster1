@@ -61,7 +61,12 @@ void ConsoleDriver::PutString(const char *s)
 
 void ConsoleDriver::GetString(char *s, int n)
 {
-    
+    if (s == nullptr || n<0) return;
+
+    for (int i=0; i<n; i++){
+        s[i] = GetChar();
+    }
+
 }
 
 
@@ -111,7 +116,7 @@ unsigned ConsoleDriver::copyStringToMachine(char* from, int to, unsigned size)
             return i;
         }
     }
-    machine->WriteMem(to+i,1,'\n');
+    machine->WriteMem(to+i,1,'\0');
     return i;
 }
 

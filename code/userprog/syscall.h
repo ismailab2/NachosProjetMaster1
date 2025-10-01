@@ -36,6 +36,7 @@
 #define SC_PutChar  12
 #define SC_PutString  13
 #define SC_GetChar 14
+#define SC_GetString 15
 #endif
 
 #ifdef IN_USER_MODE
@@ -59,6 +60,9 @@ void Halt (void) __attribute__ ((__noreturn__));
 
 #ifdef CHANGED
 void PutChar (char c);
+int GetChar ();
+void PutString(const char *s); // Behaves like fputs(3S)
+void GetString(char *s, int n); // Behaves like fgets(3S)
 #endif
 
 /* Address space control operations: Exit, Exec, and Join */

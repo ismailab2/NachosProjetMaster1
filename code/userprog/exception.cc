@@ -95,6 +95,8 @@ ExceptionHandler (ExceptionType which)
                     DEBUG('s', "SC_GetChar\n");
                     char charRead = consoledriver->GetChar();
                     machine->WriteRegister(2, charRead);
+
+                    break;
                   }
 
                 case SC_PutString:
@@ -110,6 +112,21 @@ ExceptionHandler (ExceptionType which)
 
                   break;
                 }
+
+                case SC_GetString:
+                {
+                  DEBUG('s', "SC_GetString\n");
+
+                  int to = machine->ReadRegister(4);
+                  int size = machine->ReadRegister(5);
+
+                  char buffer[MAX_STRING_SIZE];
+                  consoledriver->GetString(buffer, size);
+                  consoledriver->copyStringToMachine(buffer, to, size);
+
+                  break;
+                }
+
                 #endif
                 default:
                   {
