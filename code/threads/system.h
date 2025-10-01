@@ -10,7 +10,7 @@
 
 #ifdef CHANGED
 
-#define MAX_STRING_SIZE = 256
+#define MAX_STRING_SIZE 256
 
 #endif  // CHANGED
 
