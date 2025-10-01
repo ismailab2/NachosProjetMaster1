@@ -8,6 +8,12 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#ifdef CHANGED
+
+#define MAX_STRING_SIZE = 256
+
+#endif  // CHANGED
+
 #include "copyright.h"
 #include "utility.h"
 #include "thread.h"

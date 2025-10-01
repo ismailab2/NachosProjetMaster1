@@ -90,6 +90,20 @@ ExceptionHandler (ExceptionType which)
                     consoledriver->PutChar(charToPut);
                     break;
                   }
+
+                  case SC_PutString:
+                {
+                  DEBUG('s', "SC_PutString\n");
+
+                  int from = machine->ReadRegister(4);  // adresse de la chaîne côté user
+                  char buffer[MAX_STRING_SIZE];         // buffer local côté noyau
+
+                  copyStringFromMachine(from, buffer, MAX_STRING_SIZE);
+
+                  consoledriver->PutString(buffer);
+
+                  break;
+                }
                 #endif
                 default:
                   {
