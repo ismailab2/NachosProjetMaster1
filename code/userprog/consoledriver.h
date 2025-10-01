@@ -19,6 +19,7 @@ class ConsoleDriver{
         void PutString(const char *s); // Behaves like fputs(3S)
         void GetString(char *s, int n); // Behaves like fgets(3S)
         unsigned copyStringFromMachine(int from, char *to, unsigned size);
+        unsigned ConsoleDriver::copyStringToMachine(char* from, int to, unsigned size);
 
     private:
         Console *console;

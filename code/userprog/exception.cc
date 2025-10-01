@@ -90,8 +90,14 @@ ExceptionHandler (ExceptionType which)
                     consoledriver->PutChar(charToPut);
                     break;
                   }
+                case SC_GetChar:
+                  {
+                    DEBUG('s', "SC_GetChar\n");
+                    char charRead = consoledriver->GetChar();
+                    machine->WriteRegister(2, charRead);
+                  }
 
-                  case SC_PutString:
+                case SC_PutString:
                 {
                   DEBUG('s', "SC_PutString\n");
 

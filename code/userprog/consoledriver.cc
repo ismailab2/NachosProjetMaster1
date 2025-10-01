@@ -61,20 +61,7 @@ void ConsoleDriver::PutString(const char *s)
 
 void ConsoleDriver::GetString(char *s, int n)
 {
-    int i =0;
-
-    if (s == nullptr || n <= 0) return;
-
-    while (i < n-1){
-        int ch = GetChar();
-        // fin de lecture sur retour chariot ou EOF
-        if (ch == '\n' || ch == EOF){
-            break;
-        }
-        
-        s[i++] = (char)ch;
-    }
-    s[i]= '\0';
+    
 }
 
 
@@ -88,11 +75,11 @@ unsigned ConsoleDriver::copyStringFromMachine(int from, char *to, unsigned size)
     for (; i<size-1; i++){
         success = machine->ReadMem(from+i, 1 , &value);
 
-        if(! success){
+        if(!success){
             break; //erreur de lecture
         }
 
-        to[i++]=(char) value;
+        to[i]=(char) value;
         if (to[i] == '\0'){
             return i; // fin de chaîne côté utilisateur
         }
@@ -100,8 +87,34 @@ unsigned ConsoleDriver::copyStringFromMachine(int from, char *to, unsigned size)
     }
     to[i]='\0';
     return i;
-
 }
+
+unsigned ConsoleDriver::copyStringToMachine(char* from, int to, unsigned size)
+{
+    if (from == nullptr || size == 0) return 0;
+
+    int value ;// ReadMem écrit dans un int
+    bool success;
+    unsigned i=0;
+
+    for (; i<size-1; i++){
+
+        value = from[i];
+
+        success = machine->WriteMem(to+i,1,value);
+
+        if(!success){
+            break;
+        }
+
+        if(value == '\0'){
+            return i;
+        }
+    }
+    machine->WriteMem(to+i,1,'\n');
+    return i;
+}
+
 
 
 
