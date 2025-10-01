@@ -1,5 +1,5 @@
 
-#ifdef CHANGED;
+#ifdef CHANGED
 
 #include "syscall.h"
 
