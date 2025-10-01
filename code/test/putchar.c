@@ -19,6 +19,7 @@ void print(char c, int n)
     {
         print('a',4);
         //Halt();
+        return 0;
     }
 
     #endif //   CHANGED

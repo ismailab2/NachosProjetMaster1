@@ -39,19 +39,17 @@ GCCDIR = /opt/xgcc/mipsel/bin
 GCC	:=	gcc
 endif
 
-.PHONY: all
+.PHONY: all clean
 
 LDFLAGS = -T script -N
 ASFLAGS =
 CPPFLAGS = $(INCDIR) -DCHANGED
-
 
 # If you aren't cross-compiling:
 # GCCDIR =
 # LDFLAGS = -N -T 0
 # ASFLAGS =
 # CPPFLAGS = -P $(INCDIR)
-
 
 CC	:=	$(GCCDIR)/$(GCC)
 AS	:=	$(GCCDIR)/as
@@ -64,8 +62,13 @@ CPP	:=	$(GCCDIR)/$(GCC) -E -P
 INCDIR	:=	-I../userprog -I../threads
 CFLAGS	:=	-G 0 -DIN_USER_MODE $(INCDIR) -Wall -O2 -DCHANGED -ffreestanding
 
-SOURCES	:=	$(wildcard *.c)
-PROGS	:=	$(patsubst %.c,%,$(SOURCES))
+# fichiers communs (toujours liés mais jamais exécutés)
+COMMON_SRCS = vsprintf.c printf.c
+COMMON_OBJS = $(COMMON_SRCS:.c=.o)
+
+# tous les .c sauf les fichiers communs deviennent des exécutables
+SOURCES := $(wildcard *.c)
+PROGS   := $(patsubst %.c,%,$(filter-out $(COMMON_SRCS),$(SOURCES)))
 
 # We don't support native builds
 ifeq ($(GCCDIR),)
@@ -83,10 +86,11 @@ start.o: start.S ../userprog/syscall.h
 %.o: %.c ../userprog/syscall.h
 	$(CC) $(CFLAGS) -c $< 2>&1 | sed -e 's/\(\(warning:\|attention :\).*\)/'$$'\e''[33m\1'$$'\e''[0m/'
 
-# LB: Caution! start.o should appear *before* $< for the load!
 
-%.coff: %.o start.o
-	$(LD) $(LDFLAGS) start.o $< -o $@
+# start.o doit toujours être placé avant les autres objets
+%.coff: %.o start.o $(COMMON_OBJS)
+	$(LD) $(LDFLAGS) start.o $< $(COMMON_OBJS) -o $@
+
 
 %.s: %.coff
 	$(OBJDUMP) -d $< | sed -e 's/\<zero\>/r0/g;s/\<at\>/r1/g;s/\<v0\>/r2/g;s/\<v1\>/r3/g;s/\<a0\>/r4/g;s/\<a1\>/r5/g;s/\<a2\>/r6/g;s/\<a3\>/r7/g;s/\<t0\>/r8/g;s/\<gp\>/r28/g;s/\<sp\>/r29/g;s/\<s8\>/r30/g;s/\<ra\>/r31/g;' > $@
@@ -94,7 +98,5 @@ start.o: start.S ../userprog/syscall.h
 $(PROGS): %: %.coff
 	../bin/coff2noff $< $@
 
-# Cleaning rule
-.PHONY: clean
 clean:
 	rm -f core *.coff *.o *.s $(PROGS)
