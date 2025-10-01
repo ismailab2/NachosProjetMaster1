@@ -102,7 +102,7 @@ unsigned ConsoleDriver::copyStringToMachine(char* from, int to, unsigned size)
     bool success;
     unsigned i=0;
 
-    for (; i<size-1; i++){
+    for (; i<size; i++){
 
         value = from[i];
 
