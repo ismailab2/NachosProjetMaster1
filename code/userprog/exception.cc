@@ -130,6 +130,9 @@ ExceptionHandler (ExceptionType which)
                 case SC_Exit:
                   {
                     DEBUG ('s', "Exit, initiated by user program.\n");
+                    int mainRes = machine->ReadRegister(4);
+                    printf("\n\n%d\n\n",mainRes);
+                    consoledriver->PutChar(mainRes);
                     interrupt->Powerdown ();
                     break;
                   }

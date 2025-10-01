@@ -19,7 +19,7 @@ void echo(int n)
     main()
     {
         echo(10);
-        Halt();
+        return 0;
     }
 
 #endif //   CHANGED
