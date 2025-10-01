@@ -18,7 +18,7 @@ void print(char c, int n)
     main()
     {
         print('a',4);
-        Halt();
+        //Halt();
     }
 
     #endif //   CHANGED
